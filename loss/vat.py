@@ -67,18 +67,19 @@ class VAT(nn.Module):
     def virtual_adversarial_loss(self, x, logit):
         r_vadv = self.generate_virtual_adversarial_perturbation(x, logit)
         logit_p = logit.detach()
-        ori_x = x
-        adv_x = x + r_vadv
-        ori_x = ori_x.permute(0, 2, 3, 1).detach().cpu().numpy()
-        adv_x = adv_x.permute(0, 2, 3, 1).detach().cpu().numpy()
-        ori_x = (ori_x - np.min(ori_x))/np.ptp(ori_x)
-        adv_x = (adv_x - np.min(adv_x))/np.ptp(adv_x)
-        plt.imshow(ori_x[50, :, :, :])
-        plt.savefig(
-            self.path+'ori_x_{:.4f}.jpg'.format(self.epoch_var))
-        plt.imshow(adv_x[50, :, :, :])
-        plt.savefig(
-            self.path+'adv_x{:.4f}.jpg'.format(self.epoch_var))
+        if self.epoch == self.epoch_var:
+            ori_x = x
+            adv_x = x + r_vadv
+            ori_x = ori_x.permute(0, 2, 3, 1).detach().cpu().numpy()
+            adv_x = adv_x.permute(0, 2, 3, 1).detach().cpu().numpy()
+            ori_x = (ori_x - np.min(ori_x))/np.ptp(ori_x)
+            adv_x = (adv_x - np.min(adv_x))/np.ptp(adv_x)
+            plt.imshow(ori_x[50, :, :, :])
+            plt.savefig(
+                self.path+'ori_x_{:.4f}.jpg'.format(self.epoch_var))
+            plt.imshow(adv_x[50, :, :, :])
+            plt.savefig(
+                self.path+'adv_x{:.4f}.jpg'.format(self.epoch_var))
 
         if self.domain:
             _, logit_m = self.model(x + r_vadv)
