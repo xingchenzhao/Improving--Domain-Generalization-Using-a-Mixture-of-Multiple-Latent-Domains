@@ -62,6 +62,11 @@ if __name__ == '__main__':
     
     with open(path+'/args.txt', 'w') as f:
         f.write(str(args))
+
+    old_stdout = sys.stdout
+    log_file = open(path+'/print.log','w')
+    sys.stdout = log_file
+
         
     domain = get_domain(args.data)
     source_domain, target_domain = split_domain(domain, args.exp_num)
@@ -165,3 +170,5 @@ if __name__ == '__main__':
     best_model = best_model.to(device)
     test_acc = eval_model(best_model, target_test, device, best_epoch, path+'/target_best.txt')
     print('Test Accuracy by the best model on the source domain is {} (at Epoch {})'.format(test_acc, best_epoch))
+    sys.stdout = old_stdout
+    log_file.close()

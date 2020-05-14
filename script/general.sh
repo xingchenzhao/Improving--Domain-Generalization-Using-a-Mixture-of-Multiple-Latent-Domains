@@ -11,8 +11,8 @@ do
     dir_name="PACS/default/${domain[j]}${i}"
     echo $dir_name
     python ../main/main.py \
-        --data-root='/data/unagi0/matsuura/PACS/raw_images/kfold/' \
-        --save-root='/data/unagi0/matsuura/result/dg_mmld/' \
+        --data-root='../data/pacs/kfold/' \
+        --save-root='../data/result/dg_mmld/' \
         --result-dir=$dir_name \
         --train='general' \
         --data='PACS' \

@@ -11,6 +11,7 @@ class Id(nn.Module):
     def forward(self, x):
         return x
 
+
 class AlexNetCaffe(nn.Module):
     def __init__(self, num_classes=100, domains=3, dropout=True):
         super(AlexNetCaffe, self).__init__()
@@ -44,10 +45,11 @@ class AlexNetCaffe(nn.Module):
 
     def forward(self, x, lambda_val=0):
         x = self.features(x*57.6)
-        #57.6 is the magic number needed to bring torch data back to the range of caffe data, based on used std
+        # 57.6 is the magic number needed to bring torch data back to the range of caffe data, based on used std
         x = x.view(x.size(0), -1)
         x = self.classifier(x)
         return self.class_classifier(x)
+
 
 def caffenet(num_classes, num_domains=None, pretrained=True):
     model = AlexNetCaffe(num_classes)
@@ -57,19 +59,21 @@ def caffenet(num_classes, num_domains=None, pretrained=True):
             nn.init.constant_(m.bias, 0.)
 
     if pretrained:
-        state_dict = torch.load("/data/unagi0/matsuura/model/alexnet_caffe.pth.tar")
+        state_dict = torch.load("../alexnet_caffe.pth.tar")
         del state_dict["classifier.fc8.weight"]
         del state_dict["classifier.fc8.bias"]
         model.load_state_dict(state_dict, strict=False)
     return model
+
 
 class DGcaffenet(nn.Module):
     def __init__(self, num_classes, num_domains, pretrained=True, grl=True):
         super(DGcaffenet, self).__init__()
         self.num_domains = num_domains
         self.base_model = caffenet(num_classes, pretrained=pretrained)
-        self.discriminator = Discriminator([4096, 1024, 1024, num_domains], grl=grl, reverse=True)
-        
+        self.discriminator = Discriminator(
+            [4096, 1024, 1024, num_domains], grl=grl, reverse=True)
+
     def forward(self, x):
         x = self.base_model.features(x*57.6)
         x = x.view(x.size(0), 256 * 6 * 6)
@@ -84,17 +88,17 @@ class DGcaffenet(nn.Module):
         x = self.base_model.classifier(x)
         return x
 
-    def conv_features(self, x) :
+    def conv_features(self, x):
         results = []
         for i, model in enumerate(self.base_model.features):
-            if i==0:
+            if i == 0:
                 x = model(x*57.6)
             else:
                 x = model(x)
             if i in {5, 9}:
                 results.append(x)
         return results
-    
+
     def domain_features(self, x):
         for i, model in enumerate(self.base_model.features):
             if i == 0:
