@@ -8,11 +8,11 @@ from loss.MaximumSquareLoss import MaximumSquareLoss
 from loss.vat import VAT
 
 
-def train(model, train_data, optimizers, device, epoch, num_epoch, filename, entropy, disc_weight=None, entropy_weight=1.0, grl_weight=1.0, path=None):
+def train(model, train_data, optimizers, device, epoch, num_epoch, filename, entropy, disc_weight=None, entropy_weight=1.0, grl_weight=1.0, vat_eps=3):
     class_criterion = nn.CrossEntropyLoss()
     print(disc_weight)
     domain_criterion = nn.CrossEntropyLoss(weight=disc_weight)
-    vat_criterion = VAT(model)
+    vat_criterion = VAT(model, vat_eps)
     if entropy == 'default':
         entropy_criterion = HLoss()
     else:

@@ -53,6 +53,8 @@ if __name__ == '__main__':
 
     parser.add_argument('--instance-stat', action='store_true')
     parser.add_argument('--feature-fixed', action='store_true')
+    parser.add_argument('--vat-eps', type=int, default=3)
+    
     args = parser.parse_args()
     
     path = args.save_root + args.result_dir
@@ -141,7 +143,7 @@ if __name__ == '__main__':
         model, optimizers = get_train(args.train)(
             model=model, train_data=source_train, optimizers=optimizers, device=device,
             epoch=epoch, num_epoch=num_epoch, filename=path+'/source_train.txt', entropy=args.entropy,
-            disc_weight=weight, entropy_weight=args.entropy_weight, grl_weight=args.grl_weight,path=path)
+            disc_weight=weight, entropy_weight=args.entropy_weight, grl_weight=args.grl_weight,vat_eps=args.vat_eps)
 
         if epoch % args.eval_step == 0:
             acc =  eval_model(model, source_val, device, epoch, path+'/source_eval.txt')

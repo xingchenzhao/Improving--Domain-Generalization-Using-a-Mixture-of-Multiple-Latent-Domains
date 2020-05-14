@@ -23,7 +23,7 @@ do
         --clustering-step=1 \
         --entropy='default' \
         --exp-num=$j \
-        --gpu=0 \
+        --gpu=1 \
         --num-epoch=30 \
         --scheduler='step' \
         --lr=1e-3 \

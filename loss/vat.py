@@ -6,7 +6,6 @@ import matplotlib.pyplot as plt
 
 
 final_XI = 1e-6
-final_epsilon = 3
 
 
 class ConditionalEntropyLoss(torch.nn.Module):
@@ -20,12 +19,13 @@ class ConditionalEntropyLoss(torch.nn.Module):
 
 
 class VAT(nn.Module):
-    def __init__(self, model):
+    def __init__(self, model, vat_eps):
         super(VAT, self).__init__()
         self.n_power = 1
-        self.XI = final_XI
+        self.XI = 1e-6
+        final_XI = self.XI
         self.model = model
-        self.epsilon = final_epsilon
+        self.epsilon = vat_eps
         self.domain = False
 
     def forward(self, X, logit, domain=False):
