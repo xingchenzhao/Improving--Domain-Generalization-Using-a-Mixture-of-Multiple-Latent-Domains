@@ -1,0 +1,1 @@
+Eval: Epoch: 52 Loss: 1.5967 Acc: 0.7116

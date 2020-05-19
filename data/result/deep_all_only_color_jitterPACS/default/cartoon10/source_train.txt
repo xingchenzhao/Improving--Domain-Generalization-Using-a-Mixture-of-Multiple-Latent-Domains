@@ -1,0 +1,3 @@
+Train: Epoch: 0 Loss: 0.9044 Acc: 0.7108
+Train: Epoch: 1 Loss: 0.4630 Acc: 0.8367
+Train: Epoch: 2 Loss: 0.3337 Acc: 0.8766

@@ -1,0 +1,3 @@
+Eval: Epoch: 0 Loss: 0.3718 Acc: 0.8497
+Eval: Epoch: 1 Loss: 0.2891 Acc: 0.8941
+Eval: Epoch: 2 Loss: 0.3452 Acc: 0.8654

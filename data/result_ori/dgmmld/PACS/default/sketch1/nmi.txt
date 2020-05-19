@@ -1,0 +1,1 @@
+Epoch: 0, NMI against class labels: 0.066, domain labels: 0.432, previous assignment: 0.000
