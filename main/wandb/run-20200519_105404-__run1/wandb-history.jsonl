@@ -1,0 +1,3 @@
+{"sketch_epoch": 0, "sketch_train_class_loss": 1.0281580310912442, "sketch_train_class_acc": 0.7002749770852429, "sketch_train_domain_loss": 0.7133570256088985, "sketch_train_domain_acc": 0.6872593950504124, "sketch_train_entropy_loss": 0.0, "sketch_train_total_loss": 1.6201378107070923, "_runtime": 102.72346496582031, "_timestamp": 1589885746.2963367, "_step": 0}
+{"sketch_epoch": 0, "sketch_eval_source_class_loss": 0.42567214870570713, "sketch_eval_source_acc": 0.8616144975288303, "_runtime": 112.41889214515686, "_timestamp": 1589885755.9917638, "_step": 1}
+{"sketch_epoch": 0, "sketch_eval_target_class_loss": 1.1791199024896581, "sketch_eval_target_acc": 0.5479765843726139, "_runtime": 117.88566851615906, "_timestamp": 1589885761.4585402, "_step": 2}
